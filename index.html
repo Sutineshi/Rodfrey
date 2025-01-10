@@ -4,20 +4,28 @@
         <title>Тестируем PHP</title>
     </head>
     <body>
-        <?php echo '<p>Привет, мир!</p>'; ?>
+        <?php echo '<p>Привет, мир1111!</p>'; ?>
     </body>
 
 
 
 
+
 $token = "7769163596:AAEozTieX1YiP_jasM5vMTlsRpAA1Ejj5Gw";
-$chat_id = 508352253;
+$getQuery = array(
+     "chat_id" 	=> 508352253,
+     "text"  	=> "Новое сообщение из формы",
+     "parse_mode" => "html",
+);
+$ch = curl_init("https://api.telegram.org/bot". $token ."/sendMessage?" . http_build_query($getQuery));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_HEADER, false);
 
-$textMessage = "Тестовое сообщение";
-$textMessage = urlencode($textMessage);
+$resultQuery = curl_exec($ch);
+curl_close($ch);
 
-
-$urlQuery = "https://api.telegram.org/bot". $token ."/sendMessage?chat_id=". $chat_id ."&text=" . $textMessage;
+echo $resultQuery;
 
 
 </html>
